@@ -1,5 +1,5 @@
-import { GenericStringStorage } from "./storage/GenericStringStorage";
-import { EIP712Type, FhevmDecryptionSignatureType, FhevmInstance } from "./fhevmTypes";
+import { GenericStringStorage } from "./storage/GenericStringStorage.js";
+import { EIP712Type, FhevmDecryptionSignatureType, FhevmInstance } from "./fhevmTypes.js";
 import { ethers } from "ethers";
 
 function _timestampNow(): number {

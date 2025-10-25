@@ -18,18 +18,18 @@
 @plugin "daisyui/theme" {
   name: "light";
 
-  --color-primary: #93bbfb;
-  --color-primary-content: #212638;
+  --color-primary: #FED209;
+  --color-primary-content: #000000;
   --color-secondary: #dae8ff;
   --color-secondary-content: #212638;
-  --color-accent: #93bbfb;
-  --color-accent-content: #212638;
+  --color-accent: #FED209;
+  --color-accent-content: #000000;
   --color-neutral: #212638;
   --color-neutral-content: #ffffff;
-  --color-base-100: #e8e8e8;
-  --color-base-200: #e8e8e8;
-  --color-base-300: #e8e8e8;
-  --color-base-content: #212638;
+  --color-base-100: #000000;
+  --color-base-200: #111111;
+  --color-base-300: #1a1a1a;
+  --color-base-content: #ffffff;
   --color-info: #93bbfb;
   --color-success: #34eeb6;
   --color-warning: #ffcf72;
@@ -43,18 +43,18 @@
 @plugin "daisyui/theme" {
   name: "dark";
 
-  --color-primary: #212638;
-  --color-primary-content: #f9fbff;
+  --color-primary: #FED209;
+  --color-primary-content: #000000;
   --color-secondary: #323f61;
   --color-secondary-content: #f9fbff;
-  --color-accent: #4969a6;
-  --color-accent-content: #f9fbff;
+  --color-accent: #FED209;
+  --color-accent-content: #000000;
   --color-neutral: #f9fbff;
   --color-neutral-content: #385183;
-  --color-base-100: #b7791f;
-  --color-base-200: #975a16;
-  --color-base-300: #744210;
-  --color-base-content: #f9fbff;
+  --color-base-100: #000000;
+  --color-base-200: #111111;
+  --color-base-300: #1a1a1a;
+  --color-base-content: #ffffff;
   --color-info: #385183;
   --color-success: #34eeb6;
   --color-warning: #ffcf72;
@@ -123,4 +123,86 @@
 
 .link:hover {
   opacity: 80%;
+}
+
+
+/* Zama Design System Animations */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Custom scrollbar - Zama style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(254, 210, 9, 0.2);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(254, 210, 9, 0.4);
+}
+
+/* Smooth font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  body {
+    scroll-behavior: auto;
+  }
+}
+
+/* Enhanced animations for counter value changes */
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }

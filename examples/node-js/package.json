@@ -1,0 +1,14 @@
+{
+  "name": "fhevm-node-example",
+  "version": "1.0.0",
+  "description": "Node.js example using Universal FHEVM SDK",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@fhevm-sdk": "workspace:*",
+    "ethers": "^6.13.4"
+  }
+}

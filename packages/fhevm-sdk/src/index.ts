@@ -1,6 +1,6 @@
-export * from "./core/index";
-export * from "./storage/index";
-export * from "./fhevmTypes";
-export * from "./FhevmDecryptionSignature";
-export * from "./react/index";
+export * from "./core/index.js";
+export * from "./storage/index.js";
+export * from "./fhevmTypes.js";
+export * from "./FhevmDecryptionSignature.js";
+export * from "./react/index.js";
 

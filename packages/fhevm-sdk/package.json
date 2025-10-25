@@ -1,11 +1,20 @@
 {
   "name": "@fhevm-sdk",
   "version": "0.1.0",
+  "description": "Universal, framework-agnostic SDK for building confidential dApps with Fully Homomorphic Encryption on Ethereum",
+  "keywords": ["fhevm", "fhe", "encryption", "ethereum", "zama", "privacy", "confidential", "web3"],
+  "author": "v1ktorrr0x",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/v1ktorrr0x/fhevm-react-template"
+  },
   "private": true,
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "src/index.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -36,15 +45,16 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "idb": "^8.0.3"
-  },
-  "peerDependencies": {
-    "@fhevm/mock-utils": "^0.1.0",
+    "idb": "^8.0.3",
     "@zama-fhe/relayer-sdk": "^0.2.0",
     "ethers": "^6.13.4",
+    "@fhevm/mock-utils": "^0.1.0"
+  },
+  "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.1.0",
     "@types/node": "~18.19.50",
     "@types/react": "~19.0.7",
     "@vitest/coverage-v8": "2.1.9",

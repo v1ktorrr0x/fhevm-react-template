@@ -13,12 +13,9 @@ const DappWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <html suppressHydrationWarning className={``}>
       <head>
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=telegraf@400,500,700&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://api.fontshare.com/v2/css?f[]=telegraf@400,500,700&display=swap" rel="stylesheet" />
       </head>
-      <body>
+      <body className="bg-black">
         <ThemeProvider enableSystem>
           <DappWrapperWithProviders>{children}</DappWrapperWithProviders>
         </ThemeProvider>
