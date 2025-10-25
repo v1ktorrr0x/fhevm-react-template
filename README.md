@@ -36,6 +36,11 @@ const result = await client.userDecrypt([{ handle, contractAddress }], signer);
 pnpm install
 ```
 
+> **Note**: If you don't have `pnpm` installed, you can use `npx pnpm` instead:
+> ```bash
+> npx pnpm install
+> ```
+
 ### 2. Start Development Environment
 
 ```bash
@@ -48,6 +53,18 @@ pnpm deploy:localhost
 # Terminal 3: Start Next.js showcase
 pnpm start
 ```
+
+> **Using npx**: If you prefer not to install pnpm globally:
+> ```bash
+> # Terminal 1
+> npx pnpm chain
+> 
+> # Terminal 2
+> npx pnpm deploy:localhost
+> 
+> # Terminal 3
+> npx pnpm start
+> ```
 
 Visit `http://localhost:3000` to see the live demo!
 
@@ -118,6 +135,8 @@ pnpm sdk:test
 # Test with coverage
 pnpm sdk:test
 ```
+
+> **Using npx**: `npx pnpm sdk:build`, `npx pnpm sdk:test`, etc.
 
 ### Contract Development
 

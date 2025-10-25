@@ -112,6 +112,7 @@ Run the deployment:
 ```bash
 # From project root
 pnpm deploy:sepolia
+# or with npx: npx pnpm deploy:sepolia
 
 # This will:
 # 1. Compile contracts
@@ -217,9 +218,11 @@ npx hardhat vars set MNEMONIC
 
 # Deploy to Sepolia
 pnpm deploy:sepolia
+# or: npx pnpm deploy:sepolia
 
 # Generate ABIs
 pnpm generate
+# or: npx pnpm generate
 
 # Verify contract (optional)
 cd packages/hardhat
@@ -276,6 +279,7 @@ After deploying:
 npx hardhat vars set INFURA_API_KEY
 npx hardhat vars set MNEMONIC
 pnpm deploy:sepolia
+# or: npx pnpm deploy:sepolia
 ```
 
 **That's it!** Your contract will be deployed to Sepolia and the app will work on the testnet! 🎉

@@ -19,6 +19,7 @@ cd fhevm-react-template
 
 # Install dependencies (automatically builds SDK)
 pnpm install
+# or: npx pnpm install
 ```
 
 ### Development Workflow
@@ -42,6 +43,8 @@ pnpm lint
 # Format code
 pnpm format
 ```
+
+> **Using npx**: Prefix any command with `npx`, e.g., `npx pnpm sdk:build`
 
 ### Testing
 

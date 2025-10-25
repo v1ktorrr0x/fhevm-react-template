@@ -36,6 +36,7 @@ From the **root** of the project:
 
 ```bash
 pnpm install
+# or: npx pnpm install
 ```
 
 This will install all dependencies including the SDK.
@@ -46,6 +47,7 @@ In a **separate terminal**:
 
 ```bash
 pnpm chain
+# or: npx pnpm chain
 ```
 
 Keep this running.
@@ -56,6 +58,7 @@ In **another terminal**:
 
 ```bash
 pnpm deploy:localhost
+# or: npx pnpm deploy:localhost
 ```
 
 This will deploy the FHECounter contract.
@@ -222,6 +225,7 @@ The first `userDecrypt` call requires EIP-712 signing. Subsequent calls use the 
 
 ```bash
 pnpm chain
+# or: npx pnpm chain
 ```
 
 ### Error: Contract not deployed
@@ -232,6 +236,7 @@ pnpm chain
 
 ```bash
 pnpm deploy:localhost
+# or: npx pnpm deploy:localhost
 ```
 
 ### Error: Invalid contract address
@@ -249,6 +254,7 @@ pnpm deploy:localhost
 ```bash
 cd ../..
 pnpm install
+# or: npx pnpm install
 ```
 
 ## Next Steps

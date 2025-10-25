@@ -9,6 +9,14 @@ pnpm deploy:localhost     # Terminal 2: Deploy contracts
 pnpm start                # Terminal 3: Start Next.js
 ```
 
+**Using npx** (if pnpm not installed globally):
+```bash
+npx pnpm install
+npx pnpm chain
+npx pnpm deploy:localhost
+npx pnpm start
+```
+
 Visit `http://localhost:3000` 🚀
 
 ## SDK Usage (3 Lines!)

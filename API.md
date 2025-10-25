@@ -33,6 +33,8 @@ npm install @fhevm-sdk
 # or
 pnpm add @fhevm-sdk
 # or
+npx pnpm add @fhevm-sdk
+# or
 yarn add @fhevm-sdk
 ```
 

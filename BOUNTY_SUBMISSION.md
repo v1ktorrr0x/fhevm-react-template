@@ -282,6 +282,14 @@ pnpm deploy:localhost
 pnpm start
 ```
 
+> **Using npx**: If pnpm is not installed globally, prefix commands with `npx`:
+> ```bash
+> npx pnpm install
+> npx pnpm chain
+> npx pnpm deploy:localhost
+> npx pnpm start
+> ```
+
 Visit `http://localhost:3000` to see the demo.
 
 ### Basic Usage
