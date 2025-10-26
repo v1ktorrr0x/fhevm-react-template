@@ -1,4 +1,6 @@
 import type { JsonRpcSigner } from "ethers";
+import { FhevmDecryptionSignature } from "../FhevmDecryptionSignature.js";
+import { GenericStringInMemoryStorage } from "../storage/index.js";
 import type { FhevmInstance } from "../fhevmTypes.js";
 import { createFhevmInstance } from "../internal/fhevm.js";
 import type {
@@ -282,10 +284,6 @@ export class FhevmClient {
     if (!this.instance) {
       throw new Error("FhevmClient not ready");
     }
-
-    // Import decryption signature helper
-    const { FhevmDecryptionSignature } = await import("../FhevmDecryptionSignature.js");
-    const { GenericStringInMemoryStorage } = await import("../storage/index.js");
     
     // Create in-memory storage for signature
     const storage = new GenericStringInMemoryStorage();
