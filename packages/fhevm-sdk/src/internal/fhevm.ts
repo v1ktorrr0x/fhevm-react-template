@@ -27,7 +27,9 @@ function throwFhevmError(
 }
 
 const isFhevmInitialized = (): boolean => {
-  if (!isFhevmWindowType(window, console.log)) {
+  // Don't pass trace function in test environment to reduce noise
+  const trace = process.env.NODE_ENV === 'test' ? undefined : console.log;
+  if (!isFhevmWindowType(window, trace)) {
     return false;
   }
   return window.relayerSDK.__initialized__ === true;
@@ -41,7 +43,8 @@ const fhevmLoadSDK: FhevmLoadSDKType = () => {
 const fhevmInitSDK: FhevmInitSDKType = async (
   options?: FhevmInitSDKOptions
 ) => {
-  if (!isFhevmWindowType(window, console.log)) {
+  const trace = process.env.NODE_ENV === 'test' ? undefined : console.log;
+  if (!isFhevmWindowType(window, trace)) {
     throw new Error("window.relayerSDK is not available");
   }
   const result = await window.relayerSDK.initSDK(options);
@@ -202,11 +205,14 @@ export const createFhevmInstance = async (parameters: {
   signal: AbortSignal;
   onStatusChange?: (status: FhevmRelayerStatusType) => void;
 }): Promise<FhevmInstance> => {
-  console.log('[FHEVM SDK] createFhevmInstance called with:', {
-    hasProvider: !!parameters.provider,
-    providerType: typeof parameters.provider,
-    chainIdProvided: parameters.chainId,
-  });
+  // Debug logging (can be disabled in production)
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('[FHEVM SDK] createFhevmInstance called with:', {
+      hasProvider: !!parameters.provider,
+      providerType: typeof parameters.provider,
+      chainIdProvided: parameters.chainId,
+    });
+  }
 
   const throwIfAborted = () => {
     if (signal.aborted) throw new FhevmAbortError();
@@ -235,13 +241,17 @@ export const createFhevmInstance = async (parameters: {
     if (mockChains && mockChains[chainId]) {
       rpcUrl = mockChains[chainId];
     }
-    console.log('[FHEVM SDK] Using provided chainId:', { chainId, rpcUrl });
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('[FHEVM SDK] Using provided chainId:', { chainId, rpcUrl });
+    }
   } else {
     try {
       const resolved = await resolve(providerOrUrl);
       rpcUrl = resolved.rpcUrl;
       chainId = resolved.chainId;
-      console.log('[FHEVM SDK] Resolved from provider:', { chainId, rpcUrl });
+      if (process.env.NODE_ENV !== 'test') {
+        console.log('[FHEVM SDK] Resolved from provider:', { chainId, rpcUrl });
+      }
     } catch (error) {
       console.error('[FHEVM SDK] Error resolving provider:', error);
       throw error;
@@ -252,17 +262,23 @@ export const createFhevmInstance = async (parameters: {
 
   // Check if this is a Hardhat node with FHEVM support (localhost mock)
   if (rpcUrl && chainId === 31337) {
-    console.log('[FHEVM SDK] Detected localhost (chainId 31337), checking for FHEVM Hardhat node...');
-    console.log('[FHEVM SDK] RPC URL:', rpcUrl);
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('[FHEVM SDK] Detected localhost (chainId 31337), checking for FHEVM Hardhat node...');
+      console.log('[FHEVM SDK] RPC URL:', rpcUrl);
+    }
 
     try {
       const hardhatMetadata = await tryFetchFHEVMHardhatNodeRelayerMetadata(rpcUrl);
-      console.log('[FHEVM SDK] Hardhat metadata result:', hardhatMetadata);
+      if (process.env.NODE_ENV !== 'test') {
+        console.log('[FHEVM SDK] Hardhat metadata result:', hardhatMetadata);
+      }
 
       if (hardhatMetadata) {
         // fhevmRelayerMetadata is defined, which means rpcUrl refers to a FHEVM Hardhat Node
-        console.log('[FHEVM SDK] ✅ Detected FHEVM Hardhat node, using real mock implementation');
-        console.log('[FHEVM SDK] ACL Address:', hardhatMetadata.ACLAddress);
+        if (process.env.NODE_ENV !== 'test') {
+          console.log('[FHEVM SDK] ✅ Detected FHEVM Hardhat node, using real mock implementation');
+          console.log('[FHEVM SDK] ACL Address:', hardhatMetadata.ACLAddress);
+        }
 
         notify("creating");
 
@@ -282,20 +298,29 @@ export const createFhevmInstance = async (parameters: {
 
         throwIfAborted();
 
-        console.log('[FHEVM SDK] ✅ Real mock instance created successfully');
+        if (process.env.NODE_ENV !== 'test') {
+          console.log('[FHEVM SDK] ✅ Real mock instance created successfully');
+        }
         return mockInstance;
       } else {
-        console.log('[FHEVM SDK] ⚠️ Not a FHEVM Hardhat node (metadata check failed)');
+        if (process.env.NODE_ENV !== 'test') {
+          console.log('[FHEVM SDK] ⚠️ Not a FHEVM Hardhat node (metadata check failed)');
+        }
       }
     } catch (error) {
-      console.error('[FHEVM SDK] ❌ Error checking for FHEVM Hardhat node:', error);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('[FHEVM SDK] ❌ Error checking for FHEVM Hardhat node:', error);
+      }
     }
   }
 
-  console.log('[FHEVM SDK] Using standard Relayer SDK for chainId:', chainId);
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('[FHEVM SDK] Using standard Relayer SDK for chainId:', chainId);
+  }
 
   // Not a mock - use real Relayer SDK for Sepolia or other networks
-  if (!isFhevmWindowType(window, console.log)) {
+  const trace = process.env.NODE_ENV === 'test' ? undefined : console.log;
+  if (!isFhevmWindowType(window, trace)) {
     notify("sdk-loading");
 
     // throws an error if failed
@@ -327,9 +352,12 @@ export const createFhevmInstance = async (parameters: {
   const pub = await publicKeyStorageGet(aclAddress);
   throwIfAborted();
 
+  // Use the injected wallet provider directly for network configuration
+  // This automatically uses the connected wallet's network (e.g. Sepolia)
+  // and avoids any RPC configuration or Infura issues
   const config: FhevmInstanceConfig = {
     ...relayerSDK.SepoliaConfig,
-    network: providerOrUrl,
+    network: typeof providerOrUrl === 'string' ? providerOrUrl : providerOrUrl, // Use wallet provider as-is
     publicKey: pub.publicKey,
     publicParams: pub.publicParams,
   };
