@@ -1,6 +1,6 @@
-# Universal FHEVM SDK
+# Universal FHEVM SDK + FHE Counter Demo V2
 
-> **Framework-agnostic SDK for building confidential dApps with Fully Homomorphic Encryption on Ethereum**
+> **Zama Bounty Submission: Framework-agnostic SDK and Production-Ready UI for Confidential dApps**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
@@ -8,40 +8,111 @@
 
 ---
 
-## 🎯 Why This SDK?
+## 🏆 Zama Bounty Submission
 
-Build confidential dApps with **less than 10 lines of code** in any JavaScript environment:
+This repository contains two major contributions for the Zama FHEVM ecosystem:
 
-```typescript
-// React, Node.js, Vue, or any framework
-const client = await FhevmClient.create({ provider, chainId });
-const encrypted = await client.encryptU32(42, contractAddress, userAddress);
-const result = await client.userDecrypt([{ handle, contractAddress }], signer);
+### 1. Universal FHEVM SDK
+A framework-agnostic TypeScript SDK that enables developers to build confidential dApps with Fully Homomorphic Encryption on Ethereum in any JavaScript environment.
+
+### 2. FHE Counter Demo V2
+A production-ready reference implementation showcasing best practices for FHEVM dApp UI/UX, featuring a completely redesigned interface with enhanced user experience and technical implementation.
+
+---
+
+## 📋 Bounty Approach
+
+### Problem Statement
+Existing FHEVM implementations were tightly coupled to React, limiting adoption across the JavaScript ecosystem. Additionally, reference implementations lacked production-ready UI/UX patterns.
+
+### Our Solution
+
+**Universal SDK:**
+- Pure TypeScript core with zero framework dependencies
+- Wagmi-like API for familiar developer experience
+- Real FHEVM mock for localhost development
+- Single dependency installation (`@fhevm-sdk`)
+- Full TypeScript support with auto-completion
+
+**FHE Counter V2:**
+- Professional glassmorphic design system
+- Comprehensive user feedback at every interaction stage
+- Production-ready error handling and state management
+- Responsive design with mobile-first approach
+- Security-hardened smart contract with overflow/underflow protection
+
+### Technical Achievements
+
+**SDK Architecture:**
+```
+packages/fhevm-sdk/
+├── src/core/          # Framework-agnostic (Node.js, browser, any JS)
+├── src/react/         # React adapter with hooks
+├── src/internal/      # Network detection and mock implementation
+└── src/storage/       # IndexedDB utilities
 ```
 
-### Key Features
+**Smart Contract Security:**
+- Overflow/underflow protection
+- Access control system (owner-based permissions)
+- Event logging for transparency
+- Input validation
+- Pause mechanism for emergency response
 
-- ✅ **True Framework-Agnostic** - Pure TypeScript core, zero React dependencies
-- ✅ **Wagmi-Like API** - Familiar patterns for web3 developers
-- ✅ **Single Dependency** - Just `@fhevm-sdk`, no complex setup
-- ✅ **Real FHEVM Mock** - Actual encryption on localhost via `@fhevm/mock-utils`
-- ✅ **Production Ready** - Works on Sepolia testnet
-- ✅ **Type-Safe** - Full TypeScript support with auto-completion
+**Frontend Implementation:**
+- Component memoization architecture
+- Race condition prevention
+- Memory leak prevention
+- Type-safe throughout
+- Optimized rendering performance
+
+---
+
+## 🎨 FHE Counter V2 - Design Showcase
+
+The V2 interface demonstrates production-ready patterns for confidential dApps:
+
+### Visual Design
+- **Unified Glassmorphic Surface**: Cohesive design with subtle internal separators
+- **Two-Column Layout**: Hero counter display + Status/Info sidebar
+- **Zama Brand Colors**: Black background with yellow (#FED209) accents
+- **Minimal Borders**: Flush design for seamless visual flow
+- **Smooth Animations**: Micro-interactions for enhanced user experience
+- **Fully Responsive**: Mobile-first approach with adaptive layouts
+
+### User Experience
+- **Immediate Feedback**: Visual response to every user action
+- **Distinct Loading States**: Clear progression (Encrypting → Signing → Confirming)
+- **Auto-Decrypt**: Automatic value updates after transactions
+- **Clear Notifications**: Success/error messages with actionable information
+- **Real-Time Status**: System status indicators for FHEVM client, encryption, and contract
+- **Performance Info**: Network-specific guidance (e.g., Sepolia encryption time)
+
+### Technical Implementation
+- **Component Memoization**: Prevents unnecessary re-renders
+- **Race Condition Prevention**: Timer-based locking for async operations
+- **Memory Management**: Proper cleanup on component unmount
+- **Type Safety**: Full TypeScript coverage
+- **Optimized Handlers**: useCallback for event handlers
+
+**Implementation Files:**
+- `packages/nextjs/app/_components/FHECounterDemo.tsx` - Current V2 implementation
+- `packages/nextjs/app/_components/FHECounterDemoV2.tsx` - Alternative implementation
+- `packages/nextjs/app/_components/FHECounterDemo.backup.tsx` - Original version
+
+---
 
 ## 🚀 Quick Start
 
-### 1. Installation
+### Installation
 
 ```bash
 pnpm install
 ```
 
-> **Note**: If you don't have `pnpm` installed, you can use `npx pnpm` instead:
-> ```bash
-> npx pnpm install
-> ```
+> **Note**: If you don't have `pnpm` installed, use `npx pnpm` instead
 
-### 2. Start Development Environment
+### Start Development Environment
 
 ```bash
 # Terminal 1: Start Hardhat node
@@ -54,23 +125,13 @@ pnpm deploy:localhost
 pnpm start
 ```
 
-> **Using npx**: If you prefer not to install pnpm globally:
-> ```bash
-> # Terminal 1
-> npx pnpm chain
-> 
-> # Terminal 2
-> npx pnpm deploy:localhost
-> 
-> # Terminal 3
-> npx pnpm start
-> ```
+Visit `http://localhost:3000` to see the FHE Counter V2 demo!
 
-Visit `http://localhost:3000` to see the live demo!
+---
 
-### 3. Use in Your Project
+## 💻 Using the Universal SDK
 
-**React** (5 lines):
+### React (5 lines)
 ```typescript
 import { useFhevmClient, useEncrypt, useDecrypt } from '@fhevm-sdk';
 
@@ -79,7 +140,7 @@ const { encryptU32 } = useEncrypt({ client, contractAddress, userAddress });
 const { userDecrypt } = useDecrypt({ client, signer });
 ```
 
-**Node.js** (3 lines):
+### Node.js (3 lines)
 ```typescript
 import { FhevmClient } from '@fhevm-sdk/core';
 
@@ -87,7 +148,7 @@ const client = await FhevmClient.create({ provider, chainId });
 const encrypted = await client.encryptU32(42, contractAddress, userAddress);
 ```
 
-**Vue.js** (6 lines):
+### Vue.js (6 lines)
 ```typescript
 import { FhevmClient } from '@fhevm-sdk/core';
 import { ref, onMounted } from 'vue';
@@ -98,7 +159,7 @@ onMounted(async () => {
 });
 ```
 
-See [QUICK_START.md](./QUICK_START.md) for detailed instructions.
+---
 
 ## 📦 Project Structure
 
@@ -111,210 +172,131 @@ fhevm-react-template/
 │   │   │   ├── react/      # React hooks
 │   │   │   ├── storage/    # IndexedDB utilities
 │   │   │   └── internal/   # Internal implementation
-│   │   └── test/           # Comprehensive tests
+│   │   └── test/           # Comprehensive tests (127 passing)
 │   ├── hardhat/            # Smart contracts (FHEVM)
+│   │   ├── contracts/      # FHECounter.sol with security features
+│   │   └── test/           # Contract tests
 │   └── nextjs/             # Next.js showcase app
+│       └── app/
+│           └── _components/
+│               ├── FHECounterDemo.tsx        # V2 implementation
+│               ├── FHECounterDemoV2.tsx      # Alternative
+│               └── FHECounterDemo.backup.tsx # Original
 ├── scripts/                # Utility scripts
 └── docs/                   # Documentation
 ```
 
-## 🛠️ Development
+---
 
-### SDK Development
+## 🔑 Key Features
 
-```bash
-# Build SDK
-pnpm sdk:build
+### Universal SDK
+- ✅ **Framework-Agnostic**: Pure TypeScript core, zero React dependencies
+- ✅ **Wagmi-Like API**: Familiar patterns for web3 developers
+- ✅ **Single Dependency**: Just `@fhevm-sdk`, no complex setup
+- ✅ **Real FHEVM Mock**: Actual encryption on localhost via `@fhevm/mock-utils`
+- ✅ **Production Ready**: Works on Sepolia testnet
+- ✅ **Type-Safe**: Full TypeScript support with auto-completion
 
-# Watch mode
-pnpm sdk:watch
+### Smart Contract Security
+- ✅ **Overflow/Underflow Protection**: Prevents arithmetic wrapping
+- ✅ **Access Control**: Owner-based permissions
+- ✅ **Event Logging**: Transparency for all state changes
+- ✅ **Input Validation**: External data verification
+- ✅ **Pause Mechanism**: Emergency stop functionality
 
-# Run tests
-pnpm sdk:test
+### FHE Counter V2 UI
+- ✅ **Professional Design**: Glassmorphic Zama-branded interface
+- ✅ **Enhanced UX**: Clear feedback at every interaction stage
+- ✅ **Performance**: Memoized components, optimized rendering
+- ✅ **Responsive**: Mobile-first adaptive design
+- ✅ **Production-Ready**: Error handling, state management, type safety
 
-# Test with coverage
-pnpm sdk:test
-```
-
-> **Using npx**: `npx pnpm sdk:build`, `npx pnpm sdk:test`, etc.
-
-### Contract Development
-
-```bash
-# Compile contracts
-pnpm hardhat:compile
-
-# Test contracts
-pnpm hardhat:test
-
-# Deploy to localhost
-pnpm deploy:localhost
-
-# Deploy to Sepolia
-pnpm deploy:sepolia
-```
-
-### Frontend Development
-
-```bash
-# Start dev server
-pnpm start
-
-# Build for production
-pnpm next:build
-
-# Generate TypeScript ABIs
-pnpm generate
-```
-
-## 📚 Documentation
-
-| Document | Description |
-|----------|-------------|
-| [BOUNTY_SUBMISSION.md](./BOUNTY_SUBMISSION.md) | Architecture details and design approach |
-| [QUICK_START.md](./QUICK_START.md) | Get started in 5 minutes |
-| [API.md](./API.md) | Complete API reference |
-| [DEVELOPMENT_GUIDE.md](./DEVELOPMENT_GUIDE.md) | Development workflow |
-| [SEPOLIA_SETUP_GUIDE.md](./SEPOLIA_SETUP_GUIDE.md) | Deploy to Sepolia testnet |
-| [docs/guides/MIGRATION_GUIDE.md](./docs/guides/MIGRATION_GUIDE.md) | Migrate from old API |
-| [docs/guides/TROUBLESHOOTING.md](./docs/guides/TROUBLESHOOTING.md) | Common issues and solutions |
-
-## 🧪 Testing
-
-The SDK includes comprehensive tests:
-
-```bash
-# Run all tests
-pnpm test
-
-# Run SDK tests only
-pnpm sdk:test
-
-# Run with coverage
-pnpm sdk:test
-# Open coverage/index.html to view report
-```
-
-## 🌐 Supported Networks
-
-- **Localhost** (Chain ID: 31337) - For development with FHEVM mock
-- **Sepolia Testnet** (Chain ID: 11155111) - For testing with real FHEVM
-
-## 🔑 Key Concepts
-
-### Encryption
-Encrypt values before sending to smart contracts:
-
-```typescript
-const encrypted = await encryptU32(42);
-// Returns: { handles, inputProof }
-```
-
-### Decryption
-Decrypt encrypted values with user permission:
-
-```typescript
-const result = await userDecrypt([
-  { handle: '0x...', contractAddress: '0x...' }
-]);
-// User signs EIP-712 message to authorize decryption
-```
-
-### FHEVM Client
-The core client manages encryption/decryption:
-
-```typescript
-const client = await FhevmClient.create({
-  provider: window.ethereum,
-  chainId: 31337,
-});
-```
-
-## 🎨 FHE Counter V2 - Design Improvements
-
-As part of this bounty submission, the FHE Counter interface has been redesigned with significant improvements:
-
-### Design Enhancements
-
-**Visual Design:**
-- Unified glassmorphic surface with subtle internal separators
-- Two-column layout: Counter display (hero) + Status/Info (sidebar)
-- Minimal borders and flush design for seamless flow
-- Zama brand colors: Black background with yellow (#FED209) accents
-- Smooth animations and micro-interactions
-- Fully responsive with mobile-first approach
-
-**User Experience:**
-- Immediate visual feedback for all operations
-- Distinct loading states for each button (Encrypting → Signing → Confirming)
-- Auto-decrypt functionality after transactions
-- Success/error notifications with clear messaging
-- Real-time system status indicators
-- Performance information for Sepolia network
-
-**Technical Implementation:**
-- Component memoization for rendering efficiency
-- Race condition prevention in asynchronous operations
-- Memory leak prevention with proper cleanup
-- Type-safe architecture throughout
-- Optimized event handlers with useCallback
-
-**Files:**
-- `packages/nextjs/app/_components/FHECounterDemo.tsx` - Current implementation (V2)
-- `packages/nextjs/app/_components/FHECounterDemoV2.tsx` - Alternative implementation
-- `packages/nextjs/app/_components/FHECounterDemo.backup.tsx` - Original version
-
-The V2 design demonstrates production-ready UI/UX patterns for confidential dApps built with FHEVM.
-
-## 🏗️ Architecture
-
-### Framework-Agnostic Design
-
-```
-packages/fhevm-sdk/
-├── src/core/          ✅ Zero framework dependencies (Node.js, browser, any JS)
-├── src/react/         ✅ React adapter (hooks)
-├── src/internal/      ✅ Implementation (network detection, mock)
-└── src/storage/       ✅ Utilities (IndexedDB)
-```
-
-**Key Benefits**:
-- Pure TypeScript core - no React coupling
-- Wagmi-like modular API
-- Real FHEVM mock for localhost
-- Single dependency installation
-- Full TypeScript support
-
-See [BOUNTY_SUBMISSION.md](./BOUNTY_SUBMISSION.md) for detailed architecture information.
+---
 
 ## 🧪 Testing
 
 Comprehensive test suite with 127 passing tests:
 
 ```bash
-pnpm sdk:test        # Run all tests with coverage
+pnpm sdk:test        # Run SDK tests with coverage
+pnpm hardhat:test    # Run smart contract tests
 pnpm test            # Run all workspace tests
 ```
 
-Test structure:
+Test coverage:
 - **Unit tests**: Type validation, error handling
 - **Integration tests**: Core client, encryption, decryption, React hooks
 - **E2E tests**: Complete workflows
+- **Contract tests**: Security features, access control, events
+
+---
+
+## 🌐 Supported Networks
+
+- **Localhost** (Chain ID: 31337) - Development with FHEVM mock
+- **Sepolia Testnet** (Chain ID: 11155111) - Testing with real FHEVM
+
+---
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [BOUNTY_SUBMISSION.md](./BOUNTY_SUBMISSION.md) | Detailed architecture and design approach |
+| [QUICK_START.md](./QUICK_START.md) | Get started in 5 minutes |
+| [API.md](./API.md) | Complete API reference |
+| [SECURITY.md](./SECURITY.md) | Security features and policy |
+| [DEVELOPMENT_GUIDE.md](./DEVELOPMENT_GUIDE.md) | Development workflow |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines |
+
+---
+
+## 🛠️ Development
+
+### SDK Development
+```bash
+pnpm sdk:build       # Build SDK
+pnpm sdk:watch       # Watch mode
+pnpm sdk:test        # Run tests with coverage
+```
+
+### Contract Development
+```bash
+pnpm hardhat:compile # Compile contracts
+pnpm hardhat:test    # Test contracts
+pnpm deploy:localhost # Deploy to localhost
+pnpm deploy:sepolia  # Deploy to Sepolia
+```
+
+### Frontend Development
+```bash
+pnpm start           # Start dev server
+pnpm next:build      # Build for production
+pnpm generate        # Generate TypeScript ABIs
+```
+
+---
 
 ## 🤝 Contributing
 
 Contributions welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
+---
+
 ## 📄 License
 
 MIT License - see [LICENSE](./LICENSE) for details.
 
+---
+
 ## 🙏 Acknowledgments
 
+- [Zama](https://www.zama.ai/) - For FHEVM technology and bounty program
 - [Zama FHEVM](https://github.com/zama-ai/fhevm) - Fully Homomorphic Encryption
-- [Hardhat](https://hardhat.org/) - Ethereum development
+- [Hardhat](https://hardhat.org/) - Ethereum development environment
 - [Wagmi](https://wagmi.sh/) - API design inspiration
 
 ---
 
-**Universal FHEVM SDK** | [Architecture Details](./BOUNTY_SUBMISSION.md) | [Repository](https://github.com/v1ktorrr0x/fhevm-react-template)
+**Universal FHEVM SDK + FHE Counter V2** | [Bounty Details](./BOUNTY_SUBMISSION.md) | [Repository](https://github.com/v1ktorrr0x/fhevm-react-template)
