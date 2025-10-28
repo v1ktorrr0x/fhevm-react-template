@@ -230,6 +230,42 @@ const client = await FhevmClient.create({
 });
 ```
 
+## 🎨 FHE Counter V2 - Design Improvements
+
+As part of this bounty submission, the FHE Counter interface has been redesigned with significant improvements:
+
+### Design Enhancements
+
+**Visual Design:**
+- Unified glassmorphic surface with subtle internal separators
+- Two-column layout: Counter display (hero) + Status/Info (sidebar)
+- Minimal borders and flush design for seamless flow
+- Zama brand colors: Black background with yellow (#FED209) accents
+- Smooth animations and micro-interactions
+- Fully responsive with mobile-first approach
+
+**User Experience:**
+- Immediate visual feedback for all operations
+- Distinct loading states for each button (Encrypting → Signing → Confirming)
+- Auto-decrypt functionality after transactions
+- Success/error notifications with clear messaging
+- Real-time system status indicators
+- Performance information for Sepolia network
+
+**Technical Implementation:**
+- Component memoization for rendering efficiency
+- Race condition prevention in asynchronous operations
+- Memory leak prevention with proper cleanup
+- Type-safe architecture throughout
+- Optimized event handlers with useCallback
+
+**Files:**
+- `packages/nextjs/app/_components/FHECounterDemo.tsx` - Current implementation (V2)
+- `packages/nextjs/app/_components/FHECounterDemoV2.tsx` - Alternative implementation
+- `packages/nextjs/app/_components/FHECounterDemo.backup.tsx` - Original version
+
+The V2 design demonstrates production-ready UI/UX patterns for confidential dApps built with FHEVM.
+
 ## 🏗️ Architecture
 
 ### Framework-Agnostic Design
