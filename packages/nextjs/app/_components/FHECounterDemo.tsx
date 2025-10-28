@@ -427,37 +427,43 @@ export const FHECounterDemo = () => {
     setIsIncrementLoading(true);
     setError(null);
     setSuccessMessage(null);
-    
-    // Small delay to ensure UI updates before heavy encryption
-    await new Promise(resolve => setTimeout(resolve, UI_UPDATE_DELAY));
-    
-    try {
-      const encrypted = await encryptU32(1);
 
-      if (contractAbi) {
-        writeContract({
-          address: contractAddress as `0x${string}`,
-          abi: contractAbi,
-          functionName: "increment",
-          args: [uint8ArrayToHex(encrypted.handles[0]), uint8ArrayToHex(encrypted.inputProof)],
-        });
+    // Allow UI to update before heavy encryption
+    setTimeout(async () => {
+      try {
+        const encrypted = await encryptU32(1);
+
+        if (!encrypted) {
+          throw new Error("Encryption failed: result is null or undefined.");
+        }
+
+        if (contractAbi) {
+          writeContract({
+            address: contractAddress as `0x${string}`,
+            abi: contractAbi,
+            functionName: "increment",
+            args: [uint8ArrayToHex(encrypted.handles[0]), uint8ArrayToHex(encrypted.inputProof)],
+          });
+        }
+      } catch (err: any) {
+        console.error("[FHECounter] Increment failed:", err);
+
+        // User-friendly error messages
+        let errorMessage = "Failed to increment";
+        if (err.message.includes("Encryption failed")) {
+          errorMessage = "Encryption failed. Please try again.";
+        } else if (err.code === "ACTION_REJECTED" || err.message.includes("user rejected")) {
+          errorMessage = "Transaction cancelled by user";
+        } else if (err.message.includes("insufficient funds")) {
+          errorMessage = "Insufficient funds for gas";
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+
+        setError(errorMessage);
+        setIsIncrementLoading(false);
       }
-    } catch (err: any) {
-      console.error("[FHECounter] Increment failed:", err);
-      
-      // User-friendly error messages
-      let errorMessage = "Failed to increment";
-      if (err.code === 'ACTION_REJECTED' || err.message.includes('user rejected')) {
-        errorMessage = "Transaction cancelled by user";
-      } else if (err.message.includes('insufficient funds')) {
-        errorMessage = "Insufficient funds for gas";
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-      
-      setError(errorMessage);
-      setIsIncrementLoading(false);
-    }
+    }, UI_UPDATE_DELAY);
   }, [isReady, contractAddress, isProcessing, encryptU32, contractAbi, writeContract]);
 
   const handleDecrement = useCallback(async () => {
@@ -466,37 +472,43 @@ export const FHECounterDemo = () => {
     setIsDecrementLoading(true);
     setError(null);
     setSuccessMessage(null);
-    
-    // Small delay to ensure UI updates before heavy encryption
-    await new Promise(resolve => setTimeout(resolve, UI_UPDATE_DELAY));
-    
-    try {
-      const encrypted = await encryptU32(1);
 
-      if (contractAbi) {
-        writeContract({
-          address: contractAddress as `0x${string}`,
-          abi: contractAbi,
-          functionName: "decrement",
-          args: [uint8ArrayToHex(encrypted.handles[0]), uint8ArrayToHex(encrypted.inputProof)],
-        });
+    // Allow UI to update before heavy encryption
+    setTimeout(async () => {
+      try {
+        const encrypted = await encryptU32(1);
+
+        if (!encrypted) {
+          throw new Error("Encryption failed: result is null or undefined.");
+        }
+
+        if (contractAbi) {
+          writeContract({
+            address: contractAddress as `0x${string}`,
+            abi: contractAbi,
+            functionName: "decrement",
+            args: [uint8ArrayToHex(encrypted.handles[0]), uint8ArrayToHex(encrypted.inputProof)],
+          });
+        }
+      } catch (err: any) {
+        console.error("[FHECounter] Decrement failed:", err);
+
+        // User-friendly error messages
+        let errorMessage = "Failed to decrement";
+        if (err.message.includes("Encryption failed")) {
+          errorMessage = "Encryption failed. Please try again.";
+        } else if (err.code === "ACTION_REJECTED" || err.message.includes("user rejected")) {
+          errorMessage = "Transaction cancelled by user";
+        } else if (err.message.includes("insufficient funds")) {
+          errorMessage = "Insufficient funds for gas";
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+
+        setError(errorMessage);
+        setIsDecrementLoading(false);
       }
-    } catch (err: any) {
-      console.error("[FHECounter] Decrement failed:", err);
-      
-      // User-friendly error messages
-      let errorMessage = "Failed to decrement";
-      if (err.code === 'ACTION_REJECTED' || err.message.includes('user rejected')) {
-        errorMessage = "Transaction cancelled by user";
-      } else if (err.message.includes('insufficient funds')) {
-        errorMessage = "Insufficient funds for gas";
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-      
-      setError(errorMessage);
-      setIsDecrementLoading(false);
-    }
+    }, UI_UPDATE_DELAY);
   }, [isReady, contractAddress, isProcessing, encryptU32, contractAbi, writeContract]);
 
   const handleDecrypt = useCallback(async () => {
