@@ -1,6 +1,5 @@
 {
-  "buildCommand": "npx pnpm@9.12.3 install && cd packages/nextjs && npx pnpm@9.12.3 build",
-  "installCommand": "echo 'Skipping default install'",
-  "framework": null,
+  "installCommand": "npx pnpm@9.12.3 install --no-frozen-lockfile",
+  "buildCommand": "cd packages/nextjs && npx pnpm@9.12.3 build",
   "outputDirectory": "packages/nextjs/.next"
 }
