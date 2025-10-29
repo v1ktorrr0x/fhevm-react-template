@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useRef, memo, useCallback } from "react";
-import { useDecrypt, useEncrypt, useFhevmClient } from "@fhevm-sdk";
+import { useDecrypt, useEncrypt, useFhevmClient } from "fhevm-sdk";
 import { useAccount } from "wagmi";
 import { useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";

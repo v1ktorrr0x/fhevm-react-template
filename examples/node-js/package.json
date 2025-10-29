@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@fhevm-sdk": "workspace:*",
+    "fhevm-sdk": "workspace:*",
     "ethers": "^6.13.4"
   }
 }
