@@ -1,7 +1,7 @@
 {
   "buildCommand": "cd packages/nextjs && pnpm build",
   "devCommand": "cd packages/nextjs && pnpm dev",
-  "installCommand": "pnpm install",
+  "installCommand": "corepack enable pnpm && corepack install -g pnpm@9.12.3 && pnpm install",
   "framework": "nextjs",
   "outputDirectory": "packages/nextjs/.next",
   "git": {
