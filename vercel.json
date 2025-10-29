@@ -1,5 +1,6 @@
 {
   "installCommand": "npx pnpm@9.12.3 install --no-frozen-lockfile",
-  "buildCommand": "cd packages/nextjs && npx pnpm@9.12.3 build",
-  "outputDirectory": "packages/nextjs/.next"
+  "buildCommand": "npx pnpm@9.12.3 --filter ./packages/nextjs build",
+  "outputDirectory": "packages/nextjs/.next",
+  "framework": "nextjs"
 }
