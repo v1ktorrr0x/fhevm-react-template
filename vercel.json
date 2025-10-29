@@ -1,12 +1,6 @@
 {
-  "buildCommand": "cd packages/nextjs && npx pnpm@9.12.3 build",
-  "devCommand": "cd packages/nextjs && npx pnpm@9.12.3 dev",
-  "installCommand": "npx pnpm@9.12.3 install",
-  "framework": "nextjs",
-  "outputDirectory": "packages/nextjs/.next",
-  "git": {
-    "deploymentEnabled": {
-      "vercel-deployment": true
-    }
-  }
+  "buildCommand": "npx pnpm@9.12.3 install && cd packages/nextjs && npx pnpm@9.12.3 build",
+  "installCommand": "echo 'Skipping default install'",
+  "framework": null,
+  "outputDirectory": "packages/nextjs/.next"
 }
