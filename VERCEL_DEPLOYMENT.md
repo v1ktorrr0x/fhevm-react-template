@@ -28,13 +28,22 @@
 **Environment Variables:**
 None required for basic deployment
 
-### 3. Configure Branch Deployment
+### 3. Deploy Initial Version
 
-In Vercel project settings:
+Click "Deploy" to complete the initial deployment.
 
-**Production Branch:** `vercel-deployment`
+### 4. Change Production Branch (After First Deployment)
 
-This ensures:
+**Important:** You can only change the production branch after the project is created.
+
+1. Go to your project dashboard on Vercel
+2. Click "Settings" tab
+3. Navigate to "Git" section in the left sidebar
+4. Find "Production Branch" setting
+5. Change from `main` to `vercel-deployment`
+6. Click "Save"
+
+**Result:**
 - `vercel-deployment` branch deploys to production
 - `bounty-submission` branch remains clean for PR
 - `main` branch for ongoing development
